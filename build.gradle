@@ -1,0 +1,45 @@
+buildscript {// not sure
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+    id 'java'
+}
+
+group 'com.bukazoid.services'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url 'https://nexus.bukazoid.tk/repository/maven-releases/'
+        credentials {
+            username project.property('repoUser')
+            password project.property('repoPassword')
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'com.bukazoid.services:gateway-service:1.2.20'
+
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0-alpha1'
+    implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.14.0'
+
+    implementation group: 'io.netty', name: 'netty-all', version: '4.1.65.Final'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8'
+
+    // standard
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
